@@ -5,4 +5,4 @@ if __name__ == "__main__":
     if status[1] == True:
         print(status[0])
     else:
-        print(Sintactic(status[0]))
+        print(Sintactic(status[0]) + "1")
