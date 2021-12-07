@@ -1,0 +1,10 @@
+// Esta es una clase
+class Prueba:
+	text = "La suma es: "
+	num = 12
+	num2 = 12.0
+
+	function main():
+		printf(Text + (num + num2))
+	end
+end

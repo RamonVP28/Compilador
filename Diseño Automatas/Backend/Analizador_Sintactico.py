@@ -1,11 +1,20 @@
 from Analizador_Lexico import TableTokens, setTableTokens
+from Analizar_Semantico import Operaciones, setOperaciones
+
+#Write file
+def WriteFile(filename, text):
+    try:
+        file = open(filename, "w")
+        file.write(text)
+        file.close()
+    except FileNotFoundError:
+        print("Error: No se pudo abrir el archivo")
 
 #Obtenemos el código
 def GetFile(filename):
     stop = False
     try:
-        file = open(filename, "r")
-        Code = file
+        Code = open(filename, "r")
         return [Code,stop]
     except FileNotFoundError:
         Error = "Error 0: Archivo no encontrado"
@@ -77,10 +86,19 @@ def Sintactic(Code):
                 setTableTokens("EndFunction", "end")
             elif "InicioClass" in TableTokens:
                 setTableTokens("EndClass", "end")
+        if "printf" in lines:
+            temp = lines.strip().replace(" ", "")
+            if temp[temp.index("printf")+len("printf")] == "(" and temp[len(temp)-1] == ")":
+                setTableTokens("Print", "printf")
+                setOperaciones(temp[temp.index("(")+1:temp.index("+")],temp[temp.index("+")+2:temp.index(")")])
+            else:
+                return "Error (sintaxis) linea {}: Faltan parentesis\n".format(count) + Error(temp, "printf")
     if "InicioClass" in TableTokens and "EndClass" not in TableTokens:
         return "Error (sintaxis): No a cerrado una clase o función\n"
+    return "No hay errores sintacticos"
+    '''print(Operaciones)
     print(TableTokens)
-    print(aux)
+    print(aux)'''
 
 def isfloat(value):
     try:
