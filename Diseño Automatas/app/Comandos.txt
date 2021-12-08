@@ -2,3 +2,6 @@ npm install --force
 npm install @mui/material @emotion/react @emotion/styled
 npm install @mui/material @mui/styled-engine-sc styled-components
 npm install @mui/icons-material
+
+npm i -D electron@latest
+npm i -D concurrently wait-on
