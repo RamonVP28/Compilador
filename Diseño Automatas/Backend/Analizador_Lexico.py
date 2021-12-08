@@ -13,4 +13,4 @@ def AnalizadorLexico():
         count += 1	
         array.append([count, typo, Nombre])
     array = np.array(array)
-    print(array)
+    return array

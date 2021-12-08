@@ -1,6 +1,7 @@
 from Analizador_Sintactico import GetFile, Sintactic, WriteFile
 from Analizador_Lexico import AnalizadorLexico
 import sys
+from Analizar_Semantico import AnalizadorSemantico
 
 if __name__ == "__main__":
     code = sys.argv[1]
@@ -11,3 +12,4 @@ if __name__ == "__main__":
         print(result)
         if "Error" not in result:
             print(AnalizadorLexico())
+            print(AnalizadorSemantico())

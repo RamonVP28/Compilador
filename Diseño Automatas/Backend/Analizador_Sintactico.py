@@ -1,5 +1,5 @@
 from Analizador_Lexico import TableTokens, setTableTokens
-from Analizar_Semantico import Operaciones, setOperaciones
+from Analizar_Semantico import setOperaciones
 
 #Write file
 def WriteFile(filename, text):
@@ -27,8 +27,6 @@ def Error(input, error):
     if error != ":":
         input = input[:len(error)-1]
     temp = ""
-    print(len(input))
-    print(input)
     for i in range(len(input)):
         temp += " "
     temp += "^"
@@ -60,11 +58,11 @@ def Sintactic(Code):
                 return "Error (sintaxis) linea {}: No se puede asignar un valor a un dato numerico\n".format(count) + Error(lines.strip(), temp)
             temp2 = lines[lines.index("=")+1:].strip()
             if temp2[0] == "\"" and temp2[len(temp2)-1] == "\"":
-                setTableTokens(temp, "string")
-            if isint(temp2):
-                setTableTokens(temp, "int")
-            if isfloat(temp2):
-                setTableTokens(temp, "float")
+                setTableTokens("string", temp)
+            elif isint(temp2):
+                setTableTokens("int", temp)
+            elif isfloat(temp2):
+                setTableTokens("float", temp)
         if "function" in lines:
             if lines[lines.index("function")+len("function")] == " ":
                 setTableTokens("Function", lines[lines.index("function")+len("function"):].strip())
@@ -90,15 +88,12 @@ def Sintactic(Code):
             temp = lines.strip().replace(" ", "")
             if temp[temp.index("printf")+len("printf")] == "(" and temp[len(temp)-1] == ")":
                 setTableTokens("Print", "printf")
-                setOperaciones(temp[temp.index("(")+1:temp.index("+")],temp[temp.index("+")+2:temp.index(")")])
+                setOperaciones("Print",temp[temp.index("printf")+len("printf")+1:temp.index(")")])
             else:
                 return "Error (sintaxis) linea {}: Faltan parentesis\n".format(count) + Error(temp, "printf")
     if "InicioClass" in TableTokens and "EndClass" not in TableTokens:
         return "Error (sintaxis): No a cerrado una clase o función\n"
     return "No hay errores sintacticos"
-    '''print(Operaciones)
-    print(TableTokens)
-    print(aux)'''
 
 def isfloat(value):
     try:

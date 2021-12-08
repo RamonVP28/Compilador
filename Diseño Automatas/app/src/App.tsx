@@ -1,5 +1,4 @@
 import './App.css';
-import * as React from 'react';
 import { styled } from '@mui/material/styles';
 
 import Button from '@mui/material/Button';
@@ -23,15 +22,16 @@ var code: string = "";
 
   // Obtenemos el archivo
   function getfile(file: any) {
-    let code = file.target.files[0];
+    let codes = file.target.files[0];
     const reader = new FileReader();
-    reader.readAsText(code);
+    reader.readAsText(codes);
     reader.addEventListener('load', readFile);
   }
 
 function App() {
   const [Sintactico, setSintactico] = useState("");
   const [Lexico, setLexico] = useState("");
+  const [Semantico, setSemantico] = useState("");
 
   //Boton ejecutar
   const handleClick = async (e: any) => {
@@ -42,8 +42,9 @@ function App() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ code })
     }).then(res => res.json());
-    if (output['Lexico'] != "") {
-      setLexico(Lexico + output['Lexico'])
+    if (output['Lexico'] !== "" && output['Semantico'] !== "") {
+      setLexico(Lexico + output['Lexico']);
+      setSemantico(Semantico + output['Semantico']);
     }
     setSintactico(Sintactico + output['Sintactico']);
   }
@@ -53,6 +54,7 @@ function App() {
     e.preventDefault();
     setLexico("");
     setSintactico("");
+    setSemantico("");
   }
 
   return (
@@ -90,8 +92,7 @@ function App() {
             {/*Analizador Semantico */}
 
             <h1> Analizador Semantico</h1>
-
-            <textarea readOnly className="text" />
+            <textarea readOnly className="text" value={Semantico} />
           </div>
         </div>
 

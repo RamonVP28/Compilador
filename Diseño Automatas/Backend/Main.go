@@ -45,11 +45,13 @@ func sendData(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"Sintactico": funcCode,
 			"Lexico":     "",
+			"Semantico":  "",
 		})
 	} else {
 		c.JSON(http.StatusOK, gin.H{
 			"Sintactico": funcCode[:strings.Index(funcCode, "[")-1],
 			"Lexico":     funcCode[strings.Index(funcCode, "[")+1 : strings.Index(funcCode, "]]")+1],
+			"Semantico":  funcCode[strings.Index(funcCode, "<inicio>"):strings.Index(funcCode, "<fin>")],
 		})
 	}
 }
