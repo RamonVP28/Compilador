@@ -1,15 +1,13 @@
 from Analizador_Sintactico import GetFile, Sintactic, WriteFile
 from Analizador_Lexico import AnalizadorLexico
-import sys
 from Analizar_Semantico import AnalizadorSemantico
 
-if __name__ == "__main__":
-    code = sys.argv[1]
+def run(code):
     WriteFile("./Temp/Code.mr", code)
     status = GetFile("./Temp/Code.mr")
     if status[1] != True:
-        result = Sintactic(status[0])
-        print(result)
+        result = "<Inicio Sintactico>" + Sintactic(status[0]) + "<Fin Sintactico>"
         if "Error" not in result:
-            print(AnalizadorLexico())
-            print(AnalizadorSemantico())
+            result += "\n" + "<Inicio Lexico>" + str(AnalizadorLexico()) + "<Fin Lexico>"
+            result += "\n" + "<Inicio Semantico>" + AnalizadorSemantico() + "<Fin Semantico>"
+    return result

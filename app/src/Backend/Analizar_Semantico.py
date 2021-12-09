@@ -42,5 +42,4 @@ def AnalizadorSemantico():
         elif Token == "EndClass":
             tabulaciones = tabulaciones[:-1]
             aux += tabulaciones + "<Fin de Clase>\n"
-    aux = "<inicio>\n" + aux + "<fin>\n"
     return aux

@@ -5,3 +5,5 @@ npm install @mui/icons-material
 
 npm i -D electron@latest
 npm i -D concurrently wait-on
+
+npm audit fix --force

@@ -1,10 +1,9 @@
 const { app, BrowserWindow } = require('electron');
-const { spawn } = require('child_process');
 
 function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({
-    width: 800,
+    width: 1050,
     height: 600,
     webPreferences: {
       nodeIntegration: true,
@@ -14,7 +13,10 @@ function createWindow() {
   // and load the index.html of the app.
   // win.loadFile("index.html");
   win.loadURL('http://localhost:3000');
+
+  win.removeMenu();
 }
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -33,4 +35,20 @@ app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
+});
+
+// Conectamos con python 
+const {PythonShell} = require('python-shell');
+
+let pyshell = new PythonShell('./src/Backend/Execute.py');
+
+pyshell.on('message', function(message) {
+  console.log(message);
+})
+
+pyshell.end(function (err) {
+  if (err){
+    throw err;
+  };
+  console.log('finished');
 });
