@@ -23,9 +23,12 @@ var code: string = "";
   // Obtenemos el archivo
   function getfile(file: any) {
     let codes = file.target.files[0];
-    const reader = new FileReader();
-    reader.readAsText(codes);
-    reader.addEventListener('load', readFile);
+    if (codes != null) {
+      const reader = new FileReader();
+      reader.readAsText(codes);
+      reader.addEventListener('load', readFile);
+    }
+    file.target.value = null;
   }
 
 function App() {

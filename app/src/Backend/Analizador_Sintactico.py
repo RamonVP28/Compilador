@@ -8,7 +8,7 @@ def WriteFile(filename, text):
         file.write(text)
         file.close()
     except FileNotFoundError:
-        print("Error: No se pudo abrir el archivo")
+        return "Error: No se pudo escribir el archivo"
 
 #Obtenemos el código
 def GetFile(filename):
